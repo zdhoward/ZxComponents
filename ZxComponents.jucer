@@ -4,6 +4,15 @@
               addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1"
               cppLanguageStandard="17" includeBinaryInJuceHeader="1">
   <MAINGROUP id="Gzwrjf" name="ZxComponents">
+    <GROUP id="{38A6E075-FD1C-2449-2D04-B76BE8F614B0}" name="Assets">
+      <FILE id="RnJAgO" name="BlackgroundsRegular.ttf" compile="0" resource="1"
+            file="Assets/Fonts/BlackgroundsRegular.ttf"/>
+      <FILE id="MIvhZb" name="Ubuntu-Bold.ttf" compile="0" resource="1" file="../../Shared Resources/Fonts/UbuntuCondensed/Ubuntu-Bold.ttf"/>
+      <FILE id="sr7zdO" name="Ubuntu-Italic.ttf" compile="0" resource="1"
+            file="../../Shared Resources/Fonts/UbuntuCondensed/Ubuntu-Italic.ttf"/>
+      <FILE id="kDEgIq" name="Ubuntu-Regular.ttf" compile="0" resource="1"
+            file="../../Shared Resources/Fonts/UbuntuCondensed/Ubuntu-Regular.ttf"/>
+    </GROUP>
     <GROUP id="{52054352-09DD-B1E6-9BE6-7B41E0C914F7}" name="Library">
       <FILE id="eQeJAa" name="ColourPalette.h" compile="0" resource="0" file="Source/Library/ColourPalette.h"/>
       <FILE id="K9fAI5" name="ZxLookAndFeel.cpp" compile="1" resource="0"

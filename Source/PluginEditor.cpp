@@ -15,6 +15,7 @@
 ZxComponentsAudioProcessorEditor::ZxComponentsAudioProcessorEditor (ZxComponentsAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    //LookAndFeel::setDefaultLookAndFeel(&lnf);
     setLookAndFeel(&lnf);
 
     addAndMakeVisible(knobGroup);
@@ -23,32 +24,27 @@ ZxComponentsAudioProcessorEditor::ZxComponentsAudioProcessorEditor (ZxComponents
     addAndMakeVisible(knob1);
     knob1.setName("Knob 1");
     knob1.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    knob1.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
+    knob1.setTextValueSuffix("Hz");
     
     addAndMakeVisible(knob2);
     knob2.setName("Knob 2");
     knob2.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    knob2.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
     
     addAndMakeVisible(knob3);
     knob3.setName("Knob 3");
     knob3.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    knob3.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
 
     addAndMakeVisible(slider1);
     slider1.setName("Slider 1");
     slider1.setSliderStyle(Slider::LinearVertical);
-    slider1.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
 
     addAndMakeVisible(slider2);
     slider2.setName("Slider 2");
     slider2.setSliderStyle(Slider::LinearVertical);
-    slider2.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
 
     addAndMakeVisible(slider3);
     slider3.setName("Slider 3");
     slider3.setSliderStyle(Slider::LinearVertical);
-    slider3.setTextBoxStyle(Slider::TextBoxBelow, false, 60, 20);
 
     addAndMakeVisible(textButton);
     textButton.setButtonText("Text Button");
@@ -57,7 +53,13 @@ ZxComponentsAudioProcessorEditor::ZxComponentsAudioProcessorEditor (ZxComponents
     toggleButton.setButtonText("Toggle Button");
 
     addAndMakeVisible(label);
-    label.setText("Label: ", NotificationType::dontSendNotification);
+    Font fontTitle = lnf.getTitleFont();
+    fontTitle.setTypefaceName("Blackgrounds-Regular");
+    fontTitle.setHeight(100.f);
+    label.setFont(fontTitle);
+    label.setText("ZxTools", NotificationType::dontSendNotification);
+    label.setJustificationType(Justification::centred);
+    label.setColour(label.textColourId, ZxLookAndFeel::getTitleColour());
 
     addAndMakeVisible(comboBox);
     auto list = StringArray{
@@ -65,12 +67,12 @@ ZxComponentsAudioProcessorEditor::ZxComponentsAudioProcessorEditor (ZxComponents
         "TWO",
         "THREE",
     };
-
     comboBox.addItemList(list, 1);
+    comboBox.setName("- Presets -");
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (600, 500);
+    setSize (600, 550);
 }
 
 ZxComponentsAudioProcessorEditor::~ZxComponentsAudioProcessorEditor()
@@ -96,15 +98,13 @@ void ZxComponentsAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    
-    //knob1.setBoundsRelative(0.15, 0.2, 0.3, 0.3);
-    //knob2.setBoundsRelative(0.35, 0.2, 0.3, 0.3);
-    //knob3.setBoundsRelative(0.55, 0.2, 0.3, 0.3);
 
     auto bounds = getLocalBounds();
-    //bounds = bounds.removeFromTop(100);
 
-    auto groupBounds = bounds.removeFromTop(120);
+    auto titleBounds = bounds.removeFromTop(100);
+    label.setBounds(titleBounds.removeFromLeft(titleBounds.getWidth()));
+
+    auto groupBounds = bounds.removeFromTop(150);
     knobGroup.setBounds(groupBounds);
     groupBounds.removeFromTop(10);
     groupBounds.removeFromBottom(10);
@@ -119,11 +119,11 @@ void ZxComponentsAudioProcessorEditor::resized()
     slider2.setBounds(sliderBounds.removeFromLeft(sliderBounds.getWidth() * 0.5));
     slider3.setBounds(sliderBounds.removeFromLeft(sliderBounds.getWidth()));
 
-    auto buttonBounds = bounds.removeFromTop(100);
+    auto buttonBounds = bounds.removeFromTop(50);
     textButton.setBounds(buttonBounds.removeFromLeft(buttonBounds.getWidth() * 0.5));
     toggleButton.setBounds(buttonBounds.removeFromLeft(buttonBounds.getWidth()));
 
-    auto miscBounds = bounds.removeFromTop(100);
-    label.setBounds(miscBounds.removeFromLeft(miscBounds.getWidth() * 0.5));
-    comboBox.setBounds(miscBounds.removeFromLeft(miscBounds.getWidth()));
+    auto miscBounds = bounds.removeFromTop(30);
+    miscBounds.removeFromLeft(miscBounds.getWidth() * 0.3333);
+    comboBox.setBounds(miscBounds.removeFromLeft(miscBounds.getWidth() * 0.5));
 }
